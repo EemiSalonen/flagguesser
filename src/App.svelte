@@ -25,6 +25,7 @@
   };
 
   let gameHistory = [];
+  let countryDataArray = [];
 
   // Game state props
   let index = 0;
@@ -41,6 +42,8 @@
   // Booleans
   let gameStarted = false;
   let scoreScreen = false;
+  let showAnswer = false;
+  let answerCorrect = false;
   // Booleans -
 
   // Functions
@@ -60,13 +63,21 @@
 
   // Menuscreen -
   // Maingame
-
+  let answer;
   function sendAnswer(ce) {
     if (ce.detail === currentCountrySet[index].name) {
       scoreDataObject.currentGameScore++;
+      answerCorrect = true;
     } else {
       console.log('Incorrect!');
+      answerCorrect = false;
     }
+    answer = answerCorrect ? 'Correct!' : 'Wrong!';
+    countryDataArray.push({
+      flag: currentCountrySet[index].flag,
+      answerBool: answer,
+    });
+    countryDataArray = countryDataArray;
     index++;
     randomizeButtonSet();
     if (index === currentCountrySet.length) {
@@ -78,6 +89,10 @@
       });
       scoreDataObject.resetTimer();
     }
+    showAnswer = true;
+    setTimeout(() => {
+      showAnswer = false;
+    }, 500);
   }
 
   let answerButtonData = [];
@@ -101,6 +116,7 @@
     index = 0;
     scoreDataObject.currentGameScore = 0;
     currentCountrySet = [];
+    countryDataArray = [];
   }
   // Scorescreen -
 </script>
@@ -112,6 +128,9 @@
   {:then data}
     {#if gameStarted}
       <MainGame
+        {countryDataArray}
+        {answerCorrect}
+        {showAnswer}
         {...scoreDataObject}
         {currentCountrySet}
         {answerButtonData}
@@ -137,5 +156,6 @@
   }
   h1 {
     color: var(--maincolor);
+    text-shadow: 0 0 10px rgb(0, 0, 0);
   }
 </style>

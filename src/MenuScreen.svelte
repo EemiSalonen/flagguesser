@@ -25,4 +25,11 @@
     background-color: var(--seccolor);
     font-size: 1.2em;
   }
+  #start-div {
+    margin: 50px;
+  }
+  h2 {
+    color: var(--maincolor);
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+  }
 </style>
