@@ -1,13 +1,29 @@
 <script>
   import { randomizeCountry } from './Functions.svelte';
   import { getCountries } from './Functions.svelte';
+  import { onDestroy } from 'svelte';
+  import userData from './userDataStore.js';
 
   import MainGame from './MainGame.svelte';
   import MenuScreen from './MenuScreen.svelte';
   import ScoreScreen from './ScoreScreen.svelte';
+  import UserData from './UserData.svelte';
+  import Button from './Button.svelte';
+  import UserDataDisplay from './UserDataDisplay.svelte';
+
+  let userDataLocal;
+  const unsub = userData.subscribe((data) => (userDataLocal = data));
+  console.log(userDataLocal);
+
+  onDestroy(() => {
+    if (unsub) {
+      unsub();
+    }
+  });
 
   let allCountries = getCountries().then((data) => (allCountries = data));
   let currentCountrySet = [];
+
   let currentInterval;
 
   const scoreDataObject = {
@@ -44,6 +60,8 @@
   let scoreScreen = false;
   let showAnswer = false;
   let answerCorrect = false;
+  let showLogin = false;
+  let showUserDataDisplay = false;
   // Booleans -
 
   // Functions
@@ -58,6 +76,7 @@
     currentCountrySet = currentCountrySet;
     randomizeButtonSet();
     gameStarted = true;
+    showLogin = false;
     scoreDataObject.startTimer();
   }
 
@@ -67,9 +86,11 @@
   function sendAnswer(ce) {
     if (ce.detail === currentCountrySet[index].name) {
       scoreDataObject.currentGameScore++;
+      userData.addCorrect();
       answerCorrect = true;
     } else {
       console.log('Incorrect!');
+      userData.addWrong();
       answerCorrect = false;
     }
     answer = answerCorrect ? 'Correct!' : 'Wrong!';
@@ -83,11 +104,14 @@
     if (index === currentCountrySet.length) {
       gameStarted = false;
       scoreScreen = true;
+      showUserDataDisplay = true;
       gameHistory.push({
         score: scoreDataObject.currentGameScore,
         time: scoreDataObject.currentRoundTime,
+        username: userDataLocal.username,
       });
       scoreDataObject.resetTimer();
+      userData.addPlayedMatch();
     }
     showAnswer = true;
     setTimeout(() => {
@@ -105,7 +129,6 @@
       0,
       currentCountrySet[index]
     );
-    console.log(currentCountrySet[index]);
     answerButtonData = answerButtonData;
   }
 
@@ -113,6 +136,7 @@
   // Scorescreen
   function restart() {
     scoreScreen = false;
+    showUserDataDisplay = false;
     index = 0;
     scoreDataObject.currentGameScore = 0;
     currentCountrySet = [];
@@ -123,6 +147,16 @@
 
 <main>
   <h1>FlagGuesser</h1>
+  {#if showLogin}
+    <UserData {gameStarted} />
+  {:else}
+    <div id="loginbutton">
+      <Button on:click={() => (showLogin = true)} disabled={gameStarted}
+        >Login/Register</Button
+      >
+    </div>
+  {/if}
+
   {#await allCountries}
     <p>Loading...</p>
   {:then data}
@@ -145,6 +179,19 @@
   {:catch error}
     <h2>{error.message}</h2>
   {/await}
+  {#if showUserDataDisplay}
+    <UserDataDisplay />
+    <div class="userdatabutton">
+      <Button on:click={() => (showUserDataDisplay = false)}>Close</Button>
+    </div>
+  {:else}
+    <div class="userdatabutton">
+      <Button
+        on:click={() => (showUserDataDisplay = true)}
+        disabled={userDataLocal === undefined}>Show userdata</Button
+      >
+    </div>
+  {/if}
 </main>
 
 <style>
@@ -157,5 +204,16 @@
   h1 {
     color: var(--maincolor);
     text-shadow: 0 0 10px rgb(0, 0, 0);
+  }
+  #loginbutton {
+    position: absolute;
+    top: 5vh;
+    left: 75vw;
+  }
+  .userdatabutton {
+    position: absolute;
+    top: 4.9vh;
+    left: 10vw;
+    margin: 0;
   }
 </style>

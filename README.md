@@ -13,3 +13,5 @@ The first function version. It was the initial commit. Has the main function of 
 #### v0.2 answer feedback
 
 Added element that give feedback to the user if the answer was correct or not. Also added a element to show the current games answer history.
+
+#### v0.3 userdata

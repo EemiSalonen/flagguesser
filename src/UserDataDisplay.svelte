@@ -1,32 +1,30 @@
 <script>
+  import userDataStore from './userDataStore.js';
   import Button from './Button.svelte';
-
-  export let gameHistory;
 </script>
 
-<table>
-  <caption>Leaderboards</caption>
-  <tr>
-    <th>Game number</th>
-    <th>Score</th>
-    <th>Time</th>
-    <th>Username</th>
-  </tr>
-  {#each gameHistory as game, index}
+<div id="container">
+  <table>
+    <caption>User stats</caption>
     <tr>
-      <td>Game {index + 1}</td>
-      <td>{game.score}</td>
-      <td>{game.time}</td>
-      <td>{game.username}</td>
+      <th>Games played</th>
+      <th>Correct answers</th>
+      <th>Wrong answers</th>
     </tr>
-  {/each}
-</table>
-
-<div>
-  <Button on:click>Play again</Button>
+    <tr>
+      <td>{$userDataStore.playedGames}</td>
+      <td>{$userDataStore.correctAnswers}</td>
+      <td>{$userDataStore.wrongAnswers}</td>
+    </tr>
+  </table>
 </div>
 
 <style>
+  #container {
+    position: absolute;
+    top: 20vh;
+    left: 3.5vw;
+  }
   table {
     background-color: var(--seccolor);
     border: var(--maincolor) solid 2px;

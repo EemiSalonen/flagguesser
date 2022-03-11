@@ -1,7 +1,8 @@
 <script>
+  export let disabled;
 </script>
 
-<button on:click><slot /></button>
+<button on:click {disabled}><slot /></button>
 
 <style>
   button {
@@ -14,5 +15,9 @@
   }
   button:active {
     background-color: var(--seccolor);
+  }
+  button:disabled {
+    background-color: grey;
+    border: grey solid 2px;
   }
 </style>
