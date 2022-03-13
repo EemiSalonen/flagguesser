@@ -1,4 +1,6 @@
 <script>
+  import { fade } from 'svelte/transition';
+
   import AnswerPanel from './AnswerPanel.svelte';
   import CurrentGameDataBoard from './CurrentGameDataBoard.svelte';
 
@@ -19,8 +21,8 @@
     <div class="answerchecker"><h2 class="false">Wrong!</h2></div>
   {/if}
 {/if}
-<div id="container">
-  <div id="flagimage">
+<div id="container" in:fade={{ duration: 500 }}>
+  <div id="flagimage" in:fade={{ duration: 500 }}>
     <img src={currentCountrySet[index].flag} alt="flag" />
   </div>
   <div id="input">

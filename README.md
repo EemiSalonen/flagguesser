@@ -15,3 +15,9 @@ The first function version. It was the initial commit. Has the main function of 
 Added element that give feedback to the user if the answer was correct or not. Also added a element to show the current games answer history.
 
 #### v0.3 userdata
+
+Userdata management added. Users can log in and have their stats tracked.
+
+#### v0.4 animation
+
+Most of the app animated.

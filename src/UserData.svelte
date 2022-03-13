@@ -1,5 +1,8 @@
 <script>
   // This component is independent from App.svelte
+
+  import { fade } from 'svelte/transition';
+
   import userData from './userDataStore.js';
   import { onDestroy } from 'svelte';
 
@@ -60,7 +63,7 @@
   };
 </script>
 
-<div id="container">
+<div id="container" transition:fade={{ duration: 500 }}>
   {#if currentLogin}
     <p>Current user: {userDataLocal.username}</p>
   {/if}

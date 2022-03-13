@@ -1,11 +1,15 @@
 <script>
+  import { fly } from 'svelte/transition';
+
   import userDataStore from './userDataStore.js';
   import Button from './Button.svelte';
 </script>
 
-<div id="container">
+<div id="container" transition:fly={{ duration: 500, y: 0, x: -200 }}>
   <table>
-    <caption>User stats</caption>
+    <caption transition:fly={{ duration: 500, y: 0, x: -200 }}
+      >User stats: <strong><i>{$userDataStore.username}</i></strong></caption
+    >
     <tr>
       <th>Games played</th>
       <th>Correct answers</th>

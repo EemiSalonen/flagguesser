@@ -1,4 +1,6 @@
 <script>
+  import { fade } from 'svelte/transition';
+
   import { randomizeCountry } from './Functions.svelte';
   import { getCountries } from './Functions.svelte';
   import { onDestroy } from 'svelte';
@@ -109,6 +111,7 @@
         score: scoreDataObject.currentGameScore,
         time: scoreDataObject.currentRoundTime,
         username: userDataLocal.username,
+        continent: selectedContinent,
       });
       scoreDataObject.resetTimer();
       userData.addPlayedMatch();
@@ -150,7 +153,7 @@
   {#if showLogin}
     <UserData {gameStarted} />
   {:else}
-    <div id="loginbutton">
+    <div id="loginbutton" transition:fade={{ duration: 1000 }}>
       <Button on:click={() => (showLogin = true)} disabled={gameStarted}
         >Login/Register</Button
       >
@@ -179,16 +182,20 @@
   {:catch error}
     <h2>{error.message}</h2>
   {/await}
-  {#if showUserDataDisplay}
+  {#if showUserDataDisplay && !gameStarted}
     <UserDataDisplay />
     <div class="userdatabutton">
-      <Button on:click={() => (showUserDataDisplay = false)}>Close</Button>
+      <Button
+        disabled={gameStarted}
+        on:click={() => (showUserDataDisplay = false)}>Close</Button
+      >
     </div>
   {:else}
     <div class="userdatabutton">
       <Button
         on:click={() => (showUserDataDisplay = true)}
-        disabled={userDataLocal === undefined}>Show userdata</Button
+        disabled={userDataLocal === undefined || gameStarted}
+        >Show userdata</Button
       >
     </div>
   {/if}
