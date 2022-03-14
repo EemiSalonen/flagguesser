@@ -34,7 +34,7 @@
   <div id="flagboard">
     {#each countryDataArray as country}
       <div>
-        <div id="card">
+        <div id="card" in:fade={{ duration: 500 }}>
           <img src={country.flag} alt="flag" id="flag" />
         </div>
         <p class={country.answerBool === 'Correct!' ? 'correct' : 'false'}>
@@ -64,6 +64,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin: 100px;
   }
   #flagimage {
     display: flex;

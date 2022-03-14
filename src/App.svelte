@@ -13,6 +13,7 @@
   import Button from './Button.svelte';
   import UserDataDisplay from './UserDataDisplay.svelte';
 
+  // Store variable
   let userDataLocal;
   const unsub = userData.subscribe((data) => (userDataLocal = data));
   console.log(userDataLocal);
@@ -27,7 +28,7 @@
   let currentCountrySet = [];
 
   let currentInterval;
-
+  // Object to track score and the timer, currentInterval variable is used to stop the interval
   const scoreDataObject = {
     currentGameScore: 0,
     currentRoundTime: 0,
@@ -42,6 +43,7 @@
     },
   };
 
+  // When game is finished, the data is stored in the gameHistory array and then printed on the scorescreen
   let gameHistory = [];
   let countryDataArray = [];
 
@@ -69,6 +71,7 @@
   // Functions
   // Menuscreen functions
 
+  // Used to change the screen to the main game screen and also to filter the whole countryset to the current gameset
   function startGame() {
     currentCountrySet = [];
     continentalCountrySet = allCountries.filter(
@@ -84,6 +87,9 @@
 
   // Menuscreen -
   // Maingame
+
+  // Checks the answer string if it matches the name of the country and pushes the current game data to the gameHistory array
+  // When the flagset is done, it changes the screen to the scorescreen
   let answer;
   function sendAnswer(ce) {
     if (ce.detail === currentCountrySet[index].name) {
@@ -123,7 +129,8 @@
   }
 
   let answerButtonData = [];
-
+  // Randomizes the set of buttons used for the current guess by selecting 5 random country names and the correct answer and places them in
+  // random order
   function randomizeButtonSet() {
     answerButtonData = [];
     randomizeCountry(continentalCountrySet, answerButtonData, 5);
@@ -137,6 +144,7 @@
 
   // Maingame -
   // Scorescreen
+  // Reset data and the screen back to the menu screen
   function restart() {
     scoreScreen = false;
     showUserDataDisplay = false;
@@ -195,7 +203,7 @@
       <Button
         on:click={() => (showUserDataDisplay = true)}
         disabled={userDataLocal === undefined || gameStarted}
-        >Show userdata</Button
+        >Show userstats</Button
       >
     </div>
   {/if}
