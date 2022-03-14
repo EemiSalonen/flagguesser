@@ -21,3 +21,7 @@ Userdata management added. Users can log in and have their stats tracked.
 #### v0.4 animation
 
 Most of the app animated.
+
+#### v0.5 UI rework
+
+Changed the formating on the correct answers and changed their place to the scorescreen.

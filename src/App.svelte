@@ -103,6 +103,7 @@
     }
     answer = answerCorrect ? 'Correct!' : 'Wrong!';
     countryDataArray.push({
+      name: currentCountrySet[index].name,
       flag: currentCountrySet[index].flag,
       answerBool: answer,
     });
@@ -154,6 +155,7 @@
     countryDataArray = [];
   }
   // Scorescreen -
+  $: console.log(countryDataArray);
 </script>
 
 <main>
@@ -183,7 +185,7 @@
         on:sendAnswer={sendAnswer}
       />
     {:else if scoreScreen}
-      <ScoreScreen {gameHistory} on:click={restart} />
+      <ScoreScreen {gameHistory} {countryDataArray} on:click={restart} />
     {:else}
       <MenuScreen bind:selectedContinent on:start={startGame} />
     {/if}

@@ -11,7 +11,6 @@
   export let currentGameScore;
   export let answerCorrect;
   export let showAnswer;
-  export let countryDataArray;
 </script>
 
 {#if showAnswer}
@@ -31,18 +30,6 @@
   <div id="databoard">
     <CurrentGameDataBoard {currentRoundTime} {currentGameScore} />
   </div>
-  <div id="flagboard">
-    {#each countryDataArray as country}
-      <div>
-        <div id="card" in:fade={{ duration: 500 }}>
-          <img src={country.flag} alt="flag" id="flag" />
-        </div>
-        <p class={country.answerBool === 'Correct!' ? 'correct' : 'false'}>
-          {country.answerBool}
-        </p>
-      </div>
-    {/each}
-  </div>
 </div>
 
 <style>
@@ -60,21 +47,12 @@
     display: flex;
     justify-content: center;
   }
-  #flagboard {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 100px;
-  }
+
   #flagimage {
     display: flex;
     justify-content: center;
   }
-  #flag {
-    width: 80px;
-    height: 100px;
-    margin: 10px;
-  }
+
   #input {
     display: flex;
     justify-content: center;
