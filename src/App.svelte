@@ -1,5 +1,6 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { BarLoader } from 'svelte-loading-spinners';
 
   import { randomizeCountry } from './Functions.svelte';
   import { getCountries } from './Functions.svelte';
@@ -91,13 +92,18 @@
   // Checks the answer string if it matches the name of the country and pushes the current game data to the gameHistory array
   // When the flagset is done, it changes the screen to the scorescreen
   let answer;
+  let pointModifier = 1;
   function sendAnswer(ce) {
     if (ce.detail === currentCountrySet[index].name) {
-      scoreDataObject.currentGameScore++;
+      scoreDataObject.currentGameScore = Math.floor(
+        scoreDataObject.currentGameScore +
+          (100 * pointModifier) / scoreDataObject.currentRoundTime
+      );
+      pointModifier++;
       userData.addCorrect();
       answerCorrect = true;
     } else {
-      console.log('Incorrect!');
+      pointModifier = 1;
       userData.addWrong();
       answerCorrect = false;
     }
@@ -171,7 +177,10 @@
   {/if}
 
   {#await allCountries}
-    <p>Loading...</p>
+    <div id="spinner">
+      <BarLoader color="rgb(100, 200, 200)" size="200" />
+      <h2><span>Loading...</span></h2>
+    </div>
   {:then data}
     {#if gameStarted}
       <MainGame
@@ -232,5 +241,11 @@
     top: 4.9vh;
     left: 10vw;
     margin: 0;
+  }
+  #spinner {
+    margin-top: 120px;
+  }
+  span {
+    color: var(--maincolor);
   }
 </style>

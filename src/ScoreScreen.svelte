@@ -1,6 +1,5 @@
 <script>
   import { fly } from 'svelte/transition';
-  import { fade } from 'svelte/transition';
   import Button from './Button.svelte';
 
   export let gameHistory;

@@ -51,6 +51,7 @@
   #flagimage {
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
   }
 
   #input {
