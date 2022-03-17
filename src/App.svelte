@@ -159,6 +159,7 @@
     scoreDataObject.currentGameScore = 0;
     currentCountrySet = [];
     countryDataArray = [];
+    pointModifier = 1;
   }
   // Scorescreen -
   $: console.log(countryDataArray);

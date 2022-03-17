@@ -24,11 +24,11 @@
   <div id="flagimage" in:fade={{ duration: 500 }}>
     <img src={currentCountrySet[index].flag} alt="flag" />
   </div>
-  <div id="input">
-    <AnswerPanel {answerButtonData} on:sendAnswer />
-  </div>
   <div id="databoard">
     <CurrentGameDataBoard {currentRoundTime} {currentGameScore} />
+  </div>
+  <div id="input">
+    <AnswerPanel {answerButtonData} on:sendAnswer />
   </div>
 </div>
 
@@ -56,11 +56,9 @@
 
   #input {
     display: flex;
-    justify-content: center;
-  }
-  #input {
     margin-bottom: 5px;
   }
+
   .answerchecker {
     position: absolute;
     top: 130px;

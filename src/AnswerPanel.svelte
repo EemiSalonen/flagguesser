@@ -20,6 +20,9 @@
 
 <style>
   div {
+    display: flex;
+    flex-direction: column;
     width: 50%;
+    height: auto;
   }
 </style>
