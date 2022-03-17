@@ -32,14 +32,14 @@
   // Object to track score and the timer, currentInterval variable is used to stop the interval
   const scoreDataObject = {
     currentGameScore: 0,
-    currentRoundTime: 0,
+    currentRoundTime: 1,
     startTimer: function () {
       currentInterval = setInterval(() => {
         scoreDataObject.currentRoundTime++;
       }, 1000);
     },
     resetTimer: function () {
-      scoreDataObject.currentRoundTime = 0;
+      scoreDataObject.currentRoundTime = 1;
       clearInterval(currentInterval);
     },
   };
@@ -49,6 +49,7 @@
   let countryDataArray = [];
 
   // Game state props
+  let gameNumber = 1;
   let index = 0;
   // Game state props -
 
@@ -67,6 +68,8 @@
   let answerCorrect = false;
   let showLogin = false;
   let showUserDataDisplay = false;
+  $: loggedOut = userDataLocal === undefined;
+  $: console.log(loggedOut);
   // Booleans -
 
   // Functions
@@ -121,6 +124,7 @@
       scoreScreen = true;
       showUserDataDisplay = true;
       gameHistory.push({
+        gameNumber: gameNumber,
         score: scoreDataObject.currentGameScore,
         time: scoreDataObject.currentRoundTime,
         username: userDataLocal.username,
@@ -160,6 +164,43 @@
     currentCountrySet = [];
     countryDataArray = [];
     pointModifier = 1;
+    gameNumber++;
+  }
+
+  function sortScore() {
+    gameHistory.sort((a, b) => b.score - a.score);
+    gameHistory = gameHistory;
+    console.log(gameHistory);
+  }
+  function sortTime() {
+    gameHistory.sort((a, b) => b.time - a.time);
+    gameHistory = gameHistory;
+    console.log(gameHistory);
+  }
+  // This sort function was taken from: https://reactgo.com/javascript-sort-objects-alphabetically/
+  function sortUser() {
+    gameHistory.sort((a, b) => {
+      let userA = a.username.toUpperCase();
+      let userB = b.username.toUpperCase();
+      if (userA > userB) return 1;
+      if (userB > userA) return -1;
+      return 0;
+    });
+    gameHistory = gameHistory;
+  }
+  function sortGameNumber() {
+    gameHistory.sort((a, b) => a.gameNumber - b.gameNumber);
+    gameHistory = gameHistory;
+  }
+  function sortContinent() {
+    gameHistory.sort((a, b) => {
+      let userA = a.continent.toUpperCase();
+      let userB = b.continent.toUpperCase();
+      if (userA > userB) return 1;
+      if (userB > userA) return -1;
+      return 0;
+    });
+    gameHistory = gameHistory;
   }
   // Scorescreen -
   $: console.log(countryDataArray);
@@ -195,9 +236,18 @@
         on:sendAnswer={sendAnswer}
       />
     {:else if scoreScreen}
-      <ScoreScreen {gameHistory} {countryDataArray} on:click={restart} />
+      <ScoreScreen
+        {gameHistory}
+        {countryDataArray}
+        on:restart={restart}
+        on:sortScore={sortScore}
+        on:sortTime={sortTime}
+        on:sortUser={sortUser}
+        on:sortGameNumber={sortGameNumber}
+        on:sortContinent={sortContinent}
+      />
     {:else}
-      <MenuScreen bind:selectedContinent on:start={startGame} />
+      <MenuScreen bind:selectedContinent on:start={startGame} {loggedOut} />
     {/if}
   {:catch error}
     <h2>{error.message}</h2>

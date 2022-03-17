@@ -7,12 +7,13 @@
 
   import Button from './Button.svelte';
   export let selectedContinent;
+  export let loggedOut;
 
   const start = () => dispatch('start');
 </script>
 
 <h2 in:fly={{ duration: 500, y: -1000, x: 0 }}>
-  Choose a continent and press start
+  Choose a continent and login then press start
 </h2>
 <select
   in:fly={{ duration: 500, y: -1000, x: 0 }}
@@ -25,7 +26,7 @@
 </select>
 
 <div id="start-div" in:fly={{ duration: 500, y: -1000, x: 0 }}>
-  <Button on:click={start}>Start</Button>
+  <Button disabled={loggedOut} on:click={start}>Start</Button>
 </div>
 
 <style>

@@ -1,23 +1,34 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+
+  import { flip } from 'svelte/animate';
   import { fly } from 'svelte/transition';
   import Button from './Button.svelte';
 
   export let gameHistory;
   export let countryDataArray;
+
+  const restart = () => dispatch('restart');
+  const sortScore = () => dispatch('sortScore');
+  const sortTime = () => dispatch('sortTime');
+  const sortUser = () => dispatch('sortUser');
+  const sortGameNumber = () => dispatch('sortGameNumber');
+  const sortContinent = () => dispatch('sortContinent');
 </script>
 
 <table in:fly={{ duration: 500, y: 1000, x: 0 }}>
   <caption in:fly={{ duration: 500, y: 1000, x: 0 }}>Leaderboards</caption>
   <tr>
-    <th>Game number</th>
-    <th>Score</th>
-    <th>Time</th>
-    <th>Username</th>
-    <th>Continent</th>
+    <th on:click={sortGameNumber}>Game number</th>
+    <th on:click={sortScore}>Score</th>
+    <th on:click={sortTime}>Time</th>
+    <th on:click={sortUser}>Username</th>
+    <th on:click={sortContinent}>Continent</th>
   </tr>
-  {#each gameHistory as game, index}
-    <tr>
-      <td>Game {index + 1}</td>
+  {#each gameHistory as game (game.gameNumber)}
+    <tr animate:flip={{ duration: 500 }}>
+      <td>Game {game.gameNumber}</td>
       <td>{game.score}</td>
       <td>{game.time}</td>
       <td>{game.username}</td>
@@ -45,7 +56,7 @@
 </div>
 
 <div in:fly={{ duration: 500, y: 1000, x: 0 }}>
-  <Button on:click>Play again</Button>
+  <Button on:click={restart}>Play again</Button>
 </div>
 
 <style>
@@ -61,6 +72,13 @@
     background-color: var(--seccolor);
     padding: 5px;
     border-collapse: collapse;
+  }
+
+  th:hover {
+    background-color: var(--maincolor);
+  }
+  th:active {
+    background-color: var(--thirdcolor);
   }
   caption {
     font-size: 2em;
