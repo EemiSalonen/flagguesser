@@ -15,6 +15,7 @@
   let validLogin = true;
   let passwordFocus = true;
   let usernameFocus = true;
+  let registrationSuccess = false;
 
   $: validPassword = password.length >= 4 || passwordFocus;
   $: validUsername = name.length >= 3 || usernameFocus;
@@ -47,6 +48,10 @@
   const register = () => {
     if (userData.userValidityCheck(name)) {
       userData.register(name, password);
+      registrationSuccess = true;
+      setTimeout(() => {
+        registrationSuccess = false;
+      }, 3000);
     } else {
       usernameTaken = true;
       setTimeout(() => {
@@ -99,6 +104,9 @@
   {#if usernameTaken}
     <p>Username taken!</p>
   {/if}
+  {#if registrationSuccess}
+    <p>Registration successfull!</p>
+  {/if}
 </div>
 
 <style>
@@ -110,6 +118,7 @@
     border: 3px var(--seccolor) solid;
     width: 15vw;
     padding: 10px;
+    color: var(--thirdcolor);
   }
   input {
     margin: 5px;

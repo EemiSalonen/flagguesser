@@ -74,6 +74,7 @@
   #input {
     display: flex;
     margin-bottom: 5px;
+    margin: 20px;
   }
   .iconCorrect {
     color: rgb(80, 255, 0);

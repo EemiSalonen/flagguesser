@@ -1,5 +1,5 @@
 <script>
-  import FaRedo from 'svelte-icons/fa/FaRedo.svelte';
+  import Restart from 'svelte-icons/fa/FaRedo.svelte';
 
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
@@ -57,21 +57,25 @@
   {/each}
 </div>
 
-<div in:fly={{ duration: 500, y: 1000, x: 0 }}>
+<div id="restart" in:fly={{ duration: 500, y: 1000, x: 0 }}>
+  <div class="icon">
+    <Restart />
+  </div>
   <Button on:click={restart}>Play again</Button>
 </div>
 
 <style>
   table {
-    background-color: var(--seccolor);
-    border: var(--maincolor) solid 2px;
-    border-collapse: collapse;
+    background-color: var(--maincolor);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 3px 3px 5px 1px black;
   }
   tr,
   th,
   td {
-    border: var(--maincolor) solid 2px;
-    background-color: var(--seccolor);
+    background-color: var(--maincolor);
+    color: var(--thirdcolor);
     padding: 5px;
     border-collapse: collapse;
   }
@@ -116,5 +120,16 @@
   .false {
     color: rgb(255, 20, 0);
     max-width: 10px;
+  }
+  .icon {
+    margin-top: 2px;
+    width: 35px;
+    height: 35px;
+    color: var(--maincolor);
+  }
+  #restart {
+    display: flex;
+    margin-top: 20px;
+    margin-right: 38px;
   }
 </style>

@@ -2,7 +2,6 @@
   import { fly } from 'svelte/transition';
 
   import userDataStore from './userDataStore.js';
-  import Button from './Button.svelte';
 </script>
 
 <div id="container" transition:fly={{ duration: 500, y: 0, x: -200 }}>
@@ -30,15 +29,16 @@
     left: 3.5vw;
   }
   table {
-    background-color: var(--seccolor);
-    border: var(--maincolor) solid 2px;
-    border-collapse: collapse;
+    background-color: var(--maincolor);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 3px 3px 5px 1px black;
   }
   tr,
   th,
   td {
-    border: var(--maincolor) solid 2px;
-    background-color: var(--seccolor);
+    background-color: var(--maincolor);
+    color: var(--thirdcolor);
     padding: 5px;
     border-collapse: collapse;
   }

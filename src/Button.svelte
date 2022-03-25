@@ -6,18 +6,19 @@
 
 <style>
   button {
-    border: var(--seccolor) solid 2px;
     background-color: var(--maincolor);
     color: var(--thirdcolor);
+    border-radius: 10px;
     font-size: 1.5em;
     width: 200px;
     margin: 5px;
+    border: none;
+    box-shadow: 3px 3px 5px 1px black;
   }
   button:active {
     background-color: var(--seccolor);
   }
   button:disabled {
     background-color: grey;
-    border: grey solid 2px;
   }
 </style>

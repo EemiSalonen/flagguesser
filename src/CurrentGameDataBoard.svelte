@@ -16,11 +16,15 @@
 
 <style>
   table {
-    background-color: var(--seccolor);
+    background-color: var(--maincolor);
     width: 25%;
+    border-radius: 10px;
+    padding: 10px;
   }
-  tr {
-    border: var(--seccolor);
-    background-color: var(--seccolor);
+  tr,
+  th,
+  td {
+    background-color: var(--maincolor);
+    color: var(--thirdcolor);
   }
 </style>

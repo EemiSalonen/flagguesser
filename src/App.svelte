@@ -2,6 +2,10 @@
   import { fade } from 'svelte/transition';
   import { BarLoader } from 'svelte-loading-spinners';
 
+  import LoginIcon from 'svelte-icons/io/IoIosLogIn.svelte';
+  import ArrowDown from 'svelte-icons/io/IoIosArrowDropdown.svelte';
+  import ArrowUp from 'svelte-icons/io/IoIosArrowDropup.svelte';
+
   import { randomizeCountry } from './Functions.svelte';
   import { getCountries } from './Functions.svelte';
   import { onDestroy } from 'svelte';
@@ -203,7 +207,6 @@
     gameHistory = gameHistory;
   }
   // Scorescreen -
-  $: console.log(countryDataArray);
 </script>
 
 <main>
@@ -212,6 +215,9 @@
     <UserData {gameStarted} />
   {:else}
     <div id="loginbutton" transition:fade={{ duration: 1000 }}>
+      <div class="icon">
+        <LoginIcon />
+      </div>
       <Button on:click={() => (showLogin = true)} disabled={gameStarted}
         >Login/Register</Button
       >
@@ -253,15 +259,21 @@
     <h2>{error.message}</h2>
   {/await}
   {#if showUserDataDisplay && !gameStarted}
-    <UserDataDisplay />
     <div class="userdatabutton">
+      <div class="icon" transition:fade={{ duration: 1 }}>
+        <ArrowUp />
+      </div>
       <Button
         disabled={gameStarted}
         on:click={() => (showUserDataDisplay = false)}>Close</Button
       >
     </div>
+    <UserDataDisplay />
   {:else}
     <div class="userdatabutton">
+      <div class="icon">
+        <ArrowDown />
+      </div>
       <Button
         on:click={() => (showUserDataDisplay = true)}
         disabled={userDataLocal === undefined || gameStarted}
@@ -283,13 +295,15 @@
     text-shadow: 0 0 10px rgb(0, 0, 0);
   }
   #loginbutton {
+    display: flex;
     position: absolute;
     top: 5vh;
     left: 75vw;
   }
   .userdatabutton {
+    display: flex;
     position: absolute;
-    top: 4.9vh;
+    top: 5.3vh;
     left: 10vw;
     margin: 0;
   }
@@ -297,6 +311,12 @@
     margin-top: 120px;
   }
   span {
+    color: var(--maincolor);
+  }
+  .icon {
+    margin-top: 2px;
+    width: 40px;
+    height: 40px;
     color: var(--maincolor);
   }
 </style>
