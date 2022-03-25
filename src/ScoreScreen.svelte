@@ -1,4 +1,6 @@
 <script>
+  import FaRedo from 'svelte-icons/fa/FaRedo.svelte';
+
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 

@@ -1,4 +1,7 @@
 <script>
+  import CorrectIcon from 'svelte-icons/io/IoIosCheckmarkCircle.svelte';
+  import WrongIcon from 'svelte-icons/io/IoIosCloseCircle.svelte';
+
   import { fade } from 'svelte/transition';
 
   import AnswerPanel from './AnswerPanel.svelte';
@@ -15,9 +18,19 @@
 
 {#if showAnswer}
   {#if answerCorrect}
-    <div class="answerchecker"><h2 class="correct">Correct!</h2></div>
+    <div class="answerchecker" transition:fade={{ duration: 250 }}>
+      <div class="iconCorrect" transition:fade={{ duration: 250 }}>
+        <CorrectIcon />
+      </div>
+      <h2 class="correct" transition:fade={{ duration: 250 }}>Correct!</h2>
+    </div>
   {:else}
-    <div class="answerchecker"><h2 class="false">Wrong!</h2></div>
+    <div class="answerchecker" transition:fade={{ duration: 250 }}>
+      <div class="iconWrong" transition:fade={{ duration: 250 }}>
+        <WrongIcon />
+      </div>
+      <h2 class="false" transition:fade={{ duration: 250 }}>Wrong!</h2>
+    </div>
   {/if}
 {/if}
 <div id="container" in:fade={{ duration: 500 }}>
@@ -39,6 +52,10 @@
     height: 150px;
     border-radius: 5px;
   }
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
   #container {
     display: flex;
     flex-direction: column;
@@ -58,7 +75,20 @@
     display: flex;
     margin-bottom: 5px;
   }
-
+  .iconCorrect {
+    color: rgb(80, 255, 0);
+    width: 50px;
+    height: 50px;
+    margin-left: 24px;
+    padding: 0;
+  }
+  .iconWrong {
+    color: rgb(255, 20, 0);
+    width: 50px;
+    height: 50px;
+    margin-left: 24px;
+    padding: 0;
+  }
   .answerchecker {
     position: absolute;
     top: 130px;
@@ -66,7 +96,7 @@
     z-index: 10;
   }
   .correct {
-    color: rgb(102, 255, 0);
+    color: rgb(80, 255, 0);
   }
   .false {
     color: rgb(255, 20, 0);
