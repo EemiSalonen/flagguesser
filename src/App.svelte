@@ -136,6 +136,7 @@
       });
       scoreDataObject.resetTimer();
       userData.addPlayedMatch();
+      userData.updateDatabase();
     }
     showAnswer = true;
     setTimeout(() => {
@@ -160,7 +161,7 @@
   // Maingame -
   // Scorescreen
   // Reset data and the screen back to the menu screen
-  function restart() {
+  async function restart() {
     scoreScreen = false;
     showUserDataDisplay = false;
     index = 0;
@@ -169,6 +170,7 @@
     countryDataArray = [];
     pointModifier = 1;
     gameNumber++;
+    userData.updateCurrentUser();
   }
 
   function sortScore() {

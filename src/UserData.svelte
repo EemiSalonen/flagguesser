@@ -48,7 +48,7 @@
   };
   let usernameTaken = false;
   const register = async () => {
-    if (userData.userValidityCheck(name)) {
+    if (await userData.userValidityCheck(name)) {
       await userData.register(name, password);
       registrationSuccess = true;
       setTimeout(() => {
