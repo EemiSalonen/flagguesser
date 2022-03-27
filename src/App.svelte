@@ -6,8 +6,8 @@
   import ArrowDown from 'svelte-icons/io/IoIosArrowDropdown.svelte';
   import ArrowUp from 'svelte-icons/io/IoIosArrowDropup.svelte';
 
-  import { randomizeCountry } from './Functions.svelte';
-  import { getCountries } from './Functions.svelte';
+  import { randomizeCountry } from './Functions';
+  import { getCountries } from './Functions';
   import { onDestroy } from 'svelte';
   import userData from './userDataStore.js';
 
@@ -177,7 +177,7 @@
     console.log(gameHistory);
   }
   function sortTime() {
-    gameHistory.sort((a, b) => b.time - a.time);
+    gameHistory.sort((a, b) => a.time - b.time);
     gameHistory = gameHistory;
     console.log(gameHistory);
   }
@@ -314,7 +314,7 @@
     color: var(--maincolor);
   }
   .icon {
-    margin-top: 2px;
+    margin-top: 1px;
     width: 40px;
     height: 40px;
     color: var(--maincolor);

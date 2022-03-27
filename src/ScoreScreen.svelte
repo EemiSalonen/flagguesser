@@ -81,7 +81,7 @@
   }
 
   th:hover {
-    background-color: var(--maincolor);
+    background-color: var(--seccolor);
   }
   th:active {
     background-color: var(--thirdcolor);
