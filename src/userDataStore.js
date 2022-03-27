@@ -9,7 +9,7 @@ async function getFb(bool = true) {
   }
   const fbDatabaseJson = await fbDatabase.json();
   for (const key in fbDatabaseJson) {
-    users = [...users, { id: key, ...fbDatabaseJson[key] }];
+    users = [...users, { ...fbDatabaseJson[key] }];
   }
   if (bool) {
     return users;
@@ -62,6 +62,7 @@ const customUserData = {
       });
   },
   userValidityCheck: async function (name) {
+    const fbDatabase = await getFb();
     const foundUser = fbDatabase.find((user) => user.username === name);
     return foundUser === undefined;
   },
@@ -76,7 +77,16 @@ const customUserData = {
   },
   updateDatabase: async function () {
     const fbDatabase = await getFb(false);
-    await fetch(`${fbUrl}flagguesser-backend/${currentUser.id}.json`, {
+    let id;
+    for (const key in fbDatabase) {
+      console.log(key);
+      if (fbDatabase[key].username === currentUser.username) {
+        id = key;
+        break;
+      }
+    }
+    console.log(id);
+    await fetch(`${fbUrl}flagguesser-backend/${id}.json`, {
       method: 'DELETE',
     })
       .then((response) => {
@@ -85,22 +95,21 @@ const customUserData = {
         }
       })
       .catch((error) => console.log(error));
-    for (const key in fbDatabase)
-      await fetch(`${fbUrl}flagguesser-backend.json`, {
-        method: 'POST',
-        body: JSON.stringify(currentUser),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    await fetch(`${fbUrl}flagguesser-backend.json`, {
+      method: 'POST',
+      body: JSON.stringify(currentUser),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Database update failed!');
+        }
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Database update failed!');
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .catch((error) => {
+        console.log(error);
+      });
   },
   updateCurrentUser: async function () {
     const fbDatabase = await getFb();
