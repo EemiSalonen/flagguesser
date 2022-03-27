@@ -29,10 +29,9 @@ const customUserData = {
   login: async function (input, password) {
     const fbDatabase = await getFb();
     console.log(fbDatabase);
-    currentUser = fbDatabase.find(
+    currentUser = await fbDatabase.find(
       (user) => user.username === input && user.password === password
     );
-    console.log(currentUser);
     userData.set(currentUser);
   },
   register: function (name, password) {

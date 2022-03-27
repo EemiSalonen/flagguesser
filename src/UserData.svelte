@@ -25,19 +25,21 @@
   }
 
   const unsub = userData.subscribe((data) => (userDataLocal = data));
-
+  $: console.log(userDataLocal);
   onDestroy(() => {
     if (unsub) {
       unsub();
     }
   });
 
-  const login = () => {
-    userData.login(name, password);
+  const login = async () => {
+    await userData.login(name, password);
     password = '';
     name = '';
     validLogin = validateLogin();
     validLogin ? (currentLogin = true) : (currentLogin = false);
+    console.log(validLogin);
+    console.log(currentLogin);
     setTimeout(() => {
       validLogin = true;
     }, 3000);
@@ -45,9 +47,9 @@
     usernameFocus = true;
   };
   let usernameTaken = false;
-  const register = () => {
+  const register = async () => {
     if (userData.userValidityCheck(name)) {
-      userData.register(name, password);
+      await userData.register(name, password);
       registrationSuccess = true;
       setTimeout(() => {
         registrationSuccess = false;
@@ -93,7 +95,9 @@
     <p class="warning">Password needs to be atleast 4 characters!</p>
   {/if}
 
-  <button on:click={login}>Login</button>
+  <button on:click={login} disabled={password.length < 4 || name.length < 3}
+    >Login</button
+  >
   <button on:click={register} disabled={password.length < 4 || name.length < 3}
     >Register</button
   >
