@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
+const fbUrl =
+  'https://flagguesser-backend-default-rtdb.europe-west1.firebasedatabase.app/';
 
 async function getFb(bool = true) {
   let users = [];
@@ -17,9 +19,6 @@ async function getFb(bool = true) {
     return fbDatabaseJson;
   }
 }
-
-const fbUrl =
-  'https://flagguesser-backend-default-rtdb.europe-west1.firebasedatabase.app/';
 
 const userData = writable();
 
@@ -79,7 +78,6 @@ const customUserData = {
     const fbDatabase = await getFb(false);
     let id;
     for (const key in fbDatabase) {
-      console.log(key);
       if (fbDatabase[key].username === currentUser.username) {
         id = key;
         break;
