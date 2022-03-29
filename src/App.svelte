@@ -144,8 +144,8 @@
   }
 
   let answerButtonData = [];
-  // Randomizes the set of buttons used for the current guess by selecting 5 random country names and the correct answer and places them in
-  // random order
+  /* Randomizes the set of buttons used for the current guess by selecting 5 random country names and the correct answer and places them in
+   random order */
   function randomizeButtonSet() {
     answerButtonData = [];
     randomizeCountry(continentalCountrySet, answerButtonData, 5);

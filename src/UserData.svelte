@@ -1,7 +1,7 @@
 <script>
   // This component is independent from App.svelte
 
-  import { fade } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
 
   import userData from './userDataStore.js';
   import { onDestroy } from 'svelte';
@@ -68,7 +68,7 @@
   };
 </script>
 
-<div id="container" transition:fade={{ duration: 500 }}>
+<div id="container" transition:fly={{ duration: 250, x: 500, y: 0 }}>
   {#if currentLogin}
     <p>Current user: {userDataLocal.username}</p>
   {/if}
@@ -115,10 +115,11 @@
     top: 5vh;
     left: 75vw;
     background-color: var(--maincolor);
-    border: 3px var(--seccolor) solid;
     width: 15vw;
     padding: 10px;
     color: var(--thirdcolor);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px 1px black;
   }
   input {
     margin: 5px;
