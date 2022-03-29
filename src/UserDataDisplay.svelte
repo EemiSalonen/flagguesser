@@ -30,8 +30,8 @@
   }
   table {
     background-color: var(--maincolor);
-    border-radius: 10px;
     padding: 10px;
+    border-radius: 10px;
     box-shadow: 3px 3px 5px 1px black;
   }
   tr,
