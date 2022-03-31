@@ -19,8 +19,10 @@
   const sortContinent = () => dispatch('sortContinent');
 </script>
 
-<table in:fly={{ duration: 500, y: 1000, x: 0 }}>
-  <caption in:fly={{ duration: 500, y: 1000, x: 0 }}>Leaderboards</caption>
+<table in:fly={{ duration: 500, y: 1000, x: 0 }} out:fly={{ duration: 1 }}>
+  <caption in:fly={{ duration: 500, y: 1000, x: 0 }} out:fly={{ duration: 1 }}
+    >Leaderboards</caption
+  >
   <tr>
     <th on:click={sortGameNumber}>Game number</th>
     <th on:click={sortScore}>Score</th>
@@ -57,7 +59,11 @@
   {/each}
 </div>
 
-<div id="restart" in:fly={{ duration: 500, y: 1000, x: 0 }}>
+<div
+  id="restart"
+  in:fly={{ duration: 500, y: 1000, x: 0 }}
+  out:fly={{ duration: 1 }}
+>
   <div class="icon">
     <Restart />
   </div>

@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
+// Store is used to display and send data to the firebase-backend. Functions as a learning experience and as lightweight experiment with backend systems
+// Not be actual used. Database update function is especially inefficient for any real life deployment
 const fbUrl =
   'https://flagguesser-backend-default-rtdb.europe-west1.firebasedatabase.app/';
 
