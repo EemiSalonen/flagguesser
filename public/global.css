@@ -1,11 +1,7 @@
 :root {
   --maincolor: rgb(100, 200, 200);
   --seccolor: rgb(100, 150, 150);
-<<<<<<< HEAD
   --thirdcolor: rgb(26, 47, 59);
-=======
-  --thirdcolor: rgb(26, 47, 59);
->>>>>>> firebase
 }
 
 * {
