@@ -73,7 +73,6 @@
   let showLogin = false;
   let showUserDataDisplay = false;
   $: loggedOut = userDataLocal === undefined;
-  $: console.log(loggedOut);
   // Booleans -
 
   // Functions
@@ -148,7 +147,12 @@
    random order */
   function randomizeButtonSet() {
     answerButtonData = [];
-    randomizeCountry(continentalCountrySet, answerButtonData, 5);
+    randomizeCountry(
+      continentalCountrySet,
+      answerButtonData,
+      5,
+      currentCountrySet[index]
+    );
     answerButtonData.splice(
       Math.floor(Math.random() * 5),
       0,
