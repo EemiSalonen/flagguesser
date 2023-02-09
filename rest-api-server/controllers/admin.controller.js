@@ -12,24 +12,27 @@ const AdminController = {
   async delUser(req, res) {
     if (!req.session.correct) {
       res.send('Invalid access!');
+    } else {
+      res.json(await DbController.delUser(req.body.username));
     }
-    res.json(await DbController.delUser(req.body.username));
   },
 
   async updateUser(req, res) {
     if (!req.session.correct) {
       res.send('Invalid access!');
+    } else {
+      res.json(await DbController.updateUser(req.body));
     }
-    res.json(await DbController.updateUser(req.body));
   },
 
   async createUser(req, res) {
     if (!req.session.correct) {
       res.send('Invalid access!');
+    } else {
+      res.json(
+        await DbController.insertUser(req.body.username, req.body.password)
+      );
     }
-    res.json(
-      await DbController.insertUser(req.body.username, req.body.password)
-    );
   },
 };
 
