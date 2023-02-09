@@ -1,0 +1,15 @@
+:root {
+  --maincolor: rgb(100, 200, 200);
+  --seccolor: rgb(100, 150, 150);
+  --thirdcolor: rgb(20, 36, 46);
+}
+
+* {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+html {
+  background-image: url(pics/wallpaper.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

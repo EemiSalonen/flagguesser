@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin page</title>
+  </head>
+  <body>
+    <h2>Database content</h2>
+    <% users.map((user) => { %>
+    <span><%= user.username %></span>
+    <br />
+    <% })%>
+    <hr />
+    <h2>Delete</h2>
+    <input type="text" id="del" />
+
+    <button onclick="delUser()">Delete</button>
+    <hr />
+    <div id="updatecontainer">
+      <h2>Update</h2>
+      Old username <input type="text" id="oldusername" /> <br />
+      New username <input type="text" id="newusername" /> <br />
+      Played games <input type="text" id="playedgames" /> <br />
+      Correct Answers <input type="text" id="correctanswers" /> <br />
+      Wrong answers <input type="text" id="wronganswers" /> <br />
+      <button onclick="updateUser()">Update</button>
+    </div>
+
+    <div id="createcontainer">
+      <h2>Create</h2>
+      Username <input type="text" id="newusername" /> <br />
+      Password <input type="text" id="password" /> <br />
+      <button onclick="createUser()">Create</button>
+    </div>
+
+    <script>
+      function delUser() {
+        const delUser = document.querySelector('#del').value;
+
+        fetch('http://localhost:3000/admin/del', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: delUser,
+          }),
+        });
+      }
+
+      function updateUser() {
+        const inputs = document.querySelectorAll('#updatecontainer > input');
+
+        fetch('http://localhost:3000/admin/', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            oldusername: inputs[0].value,
+            newusername: inputs[1].value,
+            playedgames: inputs[2].value,
+            correctanswers: inputs[3].value,
+            wronganswers: inputs[4].value,
+          }),
+        })
+          .then((response) => alert('Succesfully updated!'))
+          .catch((err) => alert('Failed to update!'));
+
+        inputs.forEach((input) => (input.value = ''));
+      }
+
+      function createUser() {
+        const inputs = document.querySelectorAll('#createcontainer > input');
+
+        fetch('http://localhost:3000/admin/create', {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: inputs[0].value,
+            password: inputs[1].value,
+          }),
+        })
+          .then((response) => alert('Succesfully created!'))
+          .catch((err) => alert('Failed to create!'));
+      }
+    </script>
+  </body>
+</html>
